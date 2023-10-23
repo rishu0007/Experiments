@@ -41,6 +41,11 @@ const quizData = [
     }
 ];
 
+const quiz = document.getElementById("quiz");
+
+const answerEls = document.querySelectorAll(".answer");
+
+
 const questionE1 = document.getElementById("question");
 
 const a_text = document.getElementById("a_text");
@@ -51,10 +56,12 @@ const d_text = document.getElementById("d_text");
 const submitBtn = document.getElementById("submit");
 
 let currentQuiz = 0;
+let score = 0;
 
 loadQuiz();
 
 function loadQuiz() {
+    deselectAnswers();
     const currentQuizData = quizData[currentQuiz];
 
     questionE1.innerText = currentQuizData.question;
@@ -67,28 +74,39 @@ function loadQuiz() {
 }
 
 const getSelected = () => {
-    const answerEls = document.querySelectorAll(".answer");
+
+    let answer = undefined;
 
     answerEls.forEach((answerEl) => {
         if(answerEl.checked) {
-            return answerEl.id;
+            answer = answerEl.id;
         }
     });
 
-    return undefined;
+    return answer;
+}
+
+function deselectAnswers() {
+    answerEls.forEach((answerEl) => {
+        answerEl.checked = false;
+    });
 }
 
 submitBtn.addEventListener('click', () => {
-    currentQuiz++;
     const answer = getSelected();
 
     if(answer) {
+        if(answer === quizData[currentQuiz].correct) {
+            score++;
+        }
+        currentQuiz++;
 
+        if(currentQuiz < quizData.length) {
+            loadQuiz();
+        } else {
+            quiz.innerHTML = `<h2> You answerd corrctly ${score} / ${quizData.length} questions.</h2>
+            <button onclick = "location.reload()">Play Again</button>`;
+        }
     }
-    // if(currentQuiz < quizData.length) {
-    //     loadQuiz();
-    // } else {
-    //     // todo show result
-    //     alert("You are finished! Get some rest now")
-    // }
+    
 });
