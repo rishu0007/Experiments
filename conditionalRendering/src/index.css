@@ -1,0 +1,17 @@
+.greeting {
+  background-color: chocolate;
+  color: wheat;
+  border-radius: 3px;
+  padding: 5px 5px;
+  margin: 0px 10px;
+  text-align: center;
+}
+
+.prompt {
+  background-color: rgb(209, 18, 18);
+  color: rgb(190, 134, 39);
+  border-radius: 3px;
+  padding: 5px 5px;
+  margin: 0px 10px;
+  text-align: center;
+}
